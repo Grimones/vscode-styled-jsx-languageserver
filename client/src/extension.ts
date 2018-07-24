@@ -10,8 +10,8 @@ import * as path from 'path';
 import { languages, window, commands, ExtensionContext, TextDocument, ColorInformation, ColorPresentation, Color, Range, Position, CompletionItem, CompletionItemKind, TextEdit, SnippetString } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 
-import { ConfigurationFeature } from 'vscode-languageclient/lib/configuration.proposed';
-import { DocumentColorRequest, DocumentColorParams, ColorPresentationRequest, ColorPresentationParams } from 'vscode-languageserver-protocol/lib/protocol.colorProvider.proposed';
+import { ConfigurationFeature } from 'vscode-languageclient/lib/configuration';
+import { DocumentColorRequest, DocumentColorParams, ColorPresentationRequest, ColorPresentationParams } from 'vscode-languageserver-protocol/lib/protocol';
 
 import * as nls from 'vscode-nls';
 let localize = nls.loadMessageBundle();
@@ -112,7 +112,7 @@ export function activate(context: ExtensionContext) {
 		}
 	});
 
-	
+
 	commands.registerCommand('styled.jsx.applyCodeAction', applyCodeAction);
 	// FIXME: don't know how to correctly test this
 	function applyCodeAction(uri: string, documentVersion: number, edits: TextEdit[]) {

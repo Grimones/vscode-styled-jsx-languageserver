@@ -15,7 +15,7 @@
   },
   "publisher": "AndrewRazumovsky",
   "engines": {
-    "vscode": "^1.8.0"
+    "vscode": "^1.25.0"
   },
   "repository": {
     "type": "git",
@@ -24,10 +24,7 @@
   "bugs": {
     "url": "https://github.com/Grimones/vscode-styled-jsx-languageserver/issues"
   },
-  "categories": [
-    "Languages",
-    "Linters"
-  ],
+  "categories": [],
   "activationEvents": [
     "onLanguage:javascriptreact",
     "onLanguage:javascript",
@@ -45,11 +42,14 @@
   },
   "dependencies": {
     "typescript": "^2.2.1",
-    "vscode-languageclient": "^3.5.0",
-    "vscode-nls": "^2.0.2"
+    "vscode-css-languageservice": "^3.0.9-next.19",
+    "vscode-languageclient": "^4.3.0",
+    "vscode-languageserver": "^4.3.0",
+    "vscode-languageserver-protocol": "^3.9.0",
+    "vscode-nls": "^3.2.4"
   },
   "devDependencies": {
     "@types/node": "^9.3.0",
-    "vscode": "^1.1.10"
+    "vscode": "^1.1.18"
   }
 }

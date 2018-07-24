@@ -10,10 +10,10 @@ import {
 
 import { TextDocument } from 'vscode-languageserver-types';
 
-import { ConfigurationRequest } from 'vscode-languageserver-protocol/lib/protocol.configuration.proposed';
-import { DocumentColorRequest, ServerCapabilities as CPServerCapabilities, ColorPresentationRequest } from 'vscode-languageserver-protocol/lib/protocol.colorProvider.proposed';
+import { ConfigurationRequest } from 'vscode-languageserver-protocol/lib/protocol.configuration';
+import { DocumentColorRequest, ColorServerCapabilities as CPServerCapabilities, ColorPresentationRequest } from 'vscode-languageserver-protocol/lib/protocol.colorProvider';
 
-import { getCSSLanguageService, LanguageSettings, Stylesheet } from 'vscode-css-languageservice';
+import { getSCSSLanguageService, LanguageSettings, Stylesheet } from 'vscode-css-languageservice';
 import { getLanguageModelCache } from './language-model-cache';
 
 import { getStyledJsx, getStyledJsxUnderCursor } from './styled-jsx-utils'
@@ -56,7 +56,7 @@ connection.onInitialize((params: InitializeParams): InitializeResult => {
 	scopedSettingsSupport = hasClientCapability('workspace.configuration');
 	let capabilities: ServerCapabilities & CPServerCapabilities = {
 		// Tell the client that the server works in FULL text document sync mode
-		textDocumentSync: documents.syncKind, 
+		textDocumentSync: documents.syncKind,
 		completionProvider: snippetSupport ? { resolveProvider: false } : undefined,
 		hoverProvider: true,
 		documentSymbolProvider: true,
@@ -70,7 +70,7 @@ connection.onInitialize((params: InitializeParams): InitializeResult => {
 	return { capabilities };
 });
 
-const cssLanguageService = getCSSLanguageService();
+const cssLanguageService = getSCSSLanguageService();
 
 let documentSettings: { [key: string]: Thenable<LanguageSettings | undefined> } = {};
 // remove document settings on close
@@ -155,10 +155,12 @@ function validateTextDocument(document: TextDocument): void {
 
 connection.onCompletion(textDocumentPosition => {
 	const document = documents.get(textDocumentPosition.textDocument.uri);
+	if (!document) return null;
+
 	const cursorOffset = document.offsetAt(textDocumentPosition.position);
 
 	const styledJsx = getStyledJsxUnderCursor(document, stylesheets, cursorOffset);
-	
+
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
 		return cssLanguageService.doComplete(cssDocument, textDocumentPosition.position, stylesheet)
@@ -168,6 +170,8 @@ connection.onCompletion(textDocumentPosition => {
 
 connection.onHover(textDocumentPosition => {
 	let document = documents.get(textDocumentPosition.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -178,6 +182,8 @@ connection.onHover(textDocumentPosition => {
 
 connection.onDocumentSymbol(documentSymbolParams => {
 	let document = documents.get(documentSymbolParams.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -188,6 +194,8 @@ connection.onDocumentSymbol(documentSymbolParams => {
 
 connection.onDefinition(documentSymbolParams => {
 	let document = documents.get(documentSymbolParams.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -198,6 +206,8 @@ connection.onDefinition(documentSymbolParams => {
 
 connection.onDocumentHighlight(documentSymbolParams => {
 	let document = documents.get(documentSymbolParams.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -208,6 +218,8 @@ connection.onDocumentHighlight(documentSymbolParams => {
 
 connection.onReferences(referenceParams => {
 	let document = documents.get(referenceParams.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -218,6 +230,8 @@ connection.onReferences(referenceParams => {
 
 connection.onCodeAction(codeActionParams => {
 	let document = documents.get(codeActionParams.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;
@@ -252,6 +266,8 @@ connection.onRequest(ColorPresentationRequest.type, params => {
 
 connection.onRenameRequest(renameParameters => {
 	let document = documents.get(renameParameters.textDocument.uri);
+	if (!document) return null;
+
 	const styledJsx = getStyledJsx(document, stylesheets);
 	if (styledJsx) {
 		const { cssDocument, stylesheet } = styledJsx;

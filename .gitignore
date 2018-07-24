@@ -2,3 +2,5 @@
 **/client/out/
 **/server/out/
 **/images/
+
+*.vsix
