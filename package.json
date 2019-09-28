@@ -1,55 +1,58 @@
 {
-  "name": "vscode-styled-jsx-languageserver",
-  "displayName": "styled-jsx Language Server",
-  "description": "Language server for styled-jsx",
-  "version": "1.0.1",
-  "author": {
-    "name": "Andrew Razumovsky",
-    "email": "grimones00@gmail.com",
-    "url": "https://github.com/Grimones"
-  },
-  "license": "MIT",
-  "galleryBanner": {
-    "color": "#000000",
-    "theme": "dark"
-  },
-  "publisher": "AndrewRazumovsky",
-  "engines": {
-    "vscode": "^1.8.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Grimones/vscode-styled-jsx-languageserver"
-  },
-  "bugs": {
-    "url": "https://github.com/Grimones/vscode-styled-jsx-languageserver/issues"
-  },
-  "categories": [
-    "Languages",
-    "Linters"
-  ],
-  "activationEvents": [
-    "onLanguage:javascriptreact",
-    "onLanguage:javascript",
-    "onLanguage:typescriptreact",
-    "onLanguage:typescript",
-    "onCommand:styledJsx.applyCodeAction"
-  ],
-  "main": "./client/out/extension",
-  "scripts": {
-    "compile": "npm run compile:client && npm run compile:server",
-    "compile:client": "tsc -p ./client",
-    "compile:server": "tsc -p ./server",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run compile"
-  },
-  "dependencies": {
-    "typescript": "^2.2.1",
-    "vscode-languageclient": "^3.5.0",
-    "vscode-nls": "^2.0.2"
-  },
-  "devDependencies": {
-    "@types/node": "^9.3.0",
-    "vscode": "^1.1.10"
-  }
+    "name": "vscode-styled-jsx-languageserver",
+    "displayName": "styled-jsx Language Server",
+    "description": "Language server for styled-jsx",
+    "version": "1.0.1",
+    "author": {
+        "name": "Andrew Razumovsky",
+        "email": "grimones00@gmail.com",
+        "url": "https://github.com/Grimones"
+    },
+    "license": "MIT",
+    "galleryBanner": {
+        "color": "#000000",
+        "theme": "dark"
+    },
+    "publisher": "AndrewRazumovsky",
+    "engines": {
+        "vscode": "^1.8.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Grimones/vscode-styled-jsx-languageserver"
+    },
+    "bugs": {
+        "url": "https://github.com/Grimones/vscode-styled-jsx-languageserver/issues"
+    },
+    "categories": [
+        "Languages",
+        "Linters"
+    ],
+    "activationEvents": [
+        "onLanguage:javascriptreact",
+        "onLanguage:javascript",
+        "onLanguage:typescriptreact",
+        "onLanguage:typescript",
+        "onCommand:styledJsx.applyCodeAction"
+    ],
+    "main": "./client/out/extension",
+    "scripts": {
+        "compile": "npm run compile:client && npm run compile:server",
+        "compile:client": "tsc -p ./client",
+        "compile:server": "tsc -p ./server",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "vscode:prepublish": "npm run compile"
+    },
+    "dependencies": {
+        "typescript": "^3.5.3",
+        "vscode-css-languageservice": "^4.0.2",
+        "vscode-languageclient": "^5.2.1",
+        "vscode-languageserver": "^5.2.1",
+        "vscode-nls": "^4.1.1"
+    },
+    "devDependencies": {
+        "@types/node": "^9.3.0",
+        "@typescript-eslint/parser": "^2.0.0",
+        "vscode": "^1.1.36"
+    }
 }
